@@ -3,6 +3,8 @@ package fr.epf.min1.paysss
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +14,7 @@ import fr.epf.min1.paysss.network.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+import android.content.Intent
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.countryRecyclerView.layoutManager = LinearLayoutManager(this)
-        countryAdapter = CountryAdapter(filteredList)
+        countryAdapter = CountryAdapter(this, filteredList)
         binding.countryRecyclerView.adapter = countryAdapter
 
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
@@ -79,7 +81,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateRecyclerView() {
-        countryAdapter = CountryAdapter(filteredList)
+        countryAdapter = CountryAdapter(this, filteredList)
         binding.countryRecyclerView.adapter = countryAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_favorites -> {
+                val intent = Intent(this, FavoritesActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
