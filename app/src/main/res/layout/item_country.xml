@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/flagImageView"
             android:layout_alignParentTop="true"
-            android:text='@{country.formattedName}'
+            android:text='@{country.name}'
             android:textSize="18sp" />
 
         <TextView

@@ -29,8 +29,23 @@ data class Country(
     val cioc: String,
     val independent: Boolean
 ) : Serializable {
-    fun getFormattedName(): String {
-        return "$name, $capital"
+    fun getLanguagesSpoken(): String {
+        return languages.joinToString(", ") { it.name }
+    }
+    fun getFormattedArea(): String {
+        return if (area == area.toInt().toDouble()) {
+            "${area.toInt()} km²"
+        } else {
+            "$area km²"
+        }
+    }
+    fun getFormattedCurrency(): String {
+        val currency = currencies.firstOrNull()
+        return if (currency != null) {
+            "Monnaie : ${currency.name}, ${currency.symbol}"
+        } else {
+            "Monnaie : N/A"
+        }
     }
 }
 data class Flags(

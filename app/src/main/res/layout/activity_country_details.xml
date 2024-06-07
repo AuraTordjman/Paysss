@@ -51,6 +51,27 @@
             android:text='@{"Population: " + country.population}'
             android:textSize="18sp"
             android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/languagesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"Langues parlées: " + country.languagesSpoken}'
+            android:textSize="18sp"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/areaTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"Superficie: " + country.formattedArea}'
+            android:textSize="18sp"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/currencyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{country.formattedCurrency}'
+            android:textSize="18sp"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 </layout>
