@@ -63,8 +63,8 @@ class MainActivity : AppCompatActivity() {
             countryList
         } else {
             countryList.filter {
-                it.name.common.contains(query, ignoreCase = true) ||
-                        it.capital?.any { capital -> capital.contains(query, ignoreCase = true) } == true
+                it.name.contains(query, ignoreCase = true) ||
+                        it.capital?.contains(query, ignoreCase = true) == true
             }
         }
 

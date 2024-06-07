@@ -23,7 +23,7 @@
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{country.name.common}"
+            android:text="@{country.name}"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -32,7 +32,7 @@
             android:id="@+id/capitalTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{"Capitale: " + (country.capital != null ? country.capital.get(0) : "N/A")}'
+            android:text='@{"Capitale: " + (country.capital != null ? country.capital : "N/A")}'
             android:textSize="18sp"
             android:layout_marginTop="8dp" />
 
