@@ -5,16 +5,16 @@
             name="country"
             type="fr.epf.min1.paysss.models.Country" />
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="8dp">
 
         <ImageView
             android:id="@+id/flagImageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentStart="true"
             android:layout_marginEnd="8dp"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -22,7 +22,29 @@
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/flagImageView"
+            android:layout_alignParentTop="true"
             android:text='@{country.formattedName}'
             android:textSize="18sp" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/capitalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameTextView"
+            android:layout_toEndOf="@id/flagImageView"
+            android:text='@{"Capitale: " + (country.capital != null ? country.capital : "N/A")}'
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <ImageButton
+            android:id="@+id/favoriteButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/heart_outline"
+            android:contentDescription="@string/add_to_favorites" />
+    </RelativeLayout>
 </layout>
