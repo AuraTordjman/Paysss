@@ -5,73 +5,107 @@
             name="country"
             type="fr.epf.min1.paysss.models.Country" />
     </data>
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
         tools:context=".CountryDetailsActivity">
 
-        <ImageView
-            android:id="@+id/flagImageView"
-            android:layout_width="200dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal"
-            tools:srcCompat="@tools:sample/avatars" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{country.name}"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp" />
+            <ImageView
+                android:id="@+id/flagImageView"
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/capitalTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{"Capitale: " + (country.capital != null ? country.capital : "N/A")}'
-            android:textSize="18sp"
-            android:layout_marginTop="8dp" />
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{country.name}"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
 
-        <TextView
-            android:id="@+id/regionTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{"Région: " + (country.region != null ? country.region : "N/A")}'
-            android:textSize="18sp"
-            android:layout_marginTop="8dp" />
+            <TextView
+                android:id="@+id/capitalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"Capitale: " + (country.capital != null ? country.capital : "N/A")}'
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
 
-        <TextView
-            android:id="@+id/populationTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{"Population: " + country.population}'
-            android:textSize="18sp"
-            android:layout_marginTop="8dp" />
-        <TextView
-            android:id="@+id/languagesTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{"Langues parlées: " + country.languagesSpoken}'
-            android:textSize="18sp"
-            android:layout_marginTop="8dp" />
-        <TextView
-            android:id="@+id/areaTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{"Superficie: " + country.formattedArea}'
-            android:textSize="18sp"
-            android:layout_marginTop="8dp" />
-        <TextView
-            android:id="@+id/currencyTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{country.formattedCurrency}'
-            android:textSize="18sp"
-            android:layout_marginTop="8dp" />
+            <TextView
+                android:id="@+id/regionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"Région: " + (country.region != null ? country.region : "N/A")}'
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/populationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"Population: " + country.population}'
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/languagesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"Langues parlées: " + country.languagesSpoken}'
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/areaTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"Superficie: " + country.formattedArea}'
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/currencyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{country.formattedCurrency}'
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/borderCountriesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:src="@drawable/arrow"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/back_button"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp" />
+        </RelativeLayout>
+
+    </FrameLayout>
 </layout>

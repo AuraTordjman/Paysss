@@ -1,7 +1,9 @@
 package fr.epf.min1.paysss
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import fr.epf.min1.paysss.databinding.ActivityCountryDetailsBinding
@@ -24,6 +26,13 @@ class CountryDetailsActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(it.flags.png)
                 .into(binding.flagImageView)
+        }
+        // Configurer le bouton de retour
+        val color = ContextCompat.getColor(this, R.color.purple_500)
+        binding.backButton.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        
+        binding.backButton.setOnClickListener {
+            onBackPressed()
         }
     }
 }
