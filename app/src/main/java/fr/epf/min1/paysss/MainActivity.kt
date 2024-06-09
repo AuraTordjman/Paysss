@@ -1,5 +1,7 @@
 package fr.epf.min1.paysss
 
+import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.epf.min1.paysss.databinding.ActivityMainBinding
 import fr.epf.min1.paysss.models.Country
@@ -14,7 +17,7 @@ import fr.epf.min1.paysss.network.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.content.Intent
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -88,6 +91,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        val favoriteItem = menu?.findItem(R.id.action_favorites)
+        val favoriteIcon = favoriteItem?.icon
+        val color = ContextCompat.getColor(this, R.color.teal_200) // Remplacez R.color.favorite_color par la couleur souhaitée
+        favoriteIcon?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

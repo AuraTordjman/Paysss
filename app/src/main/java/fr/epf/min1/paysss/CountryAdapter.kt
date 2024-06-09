@@ -2,9 +2,11 @@ package fr.epf.min1.paysss
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.epf.min1.paysss.databinding.ItemCountryBinding
@@ -66,6 +68,14 @@ class CountryAdapter(private val context: Context, private val countries: List<C
                 R.drawable.heart_outline // Icône pour non favoris
             }
             binding.favoriteButton.setImageResource(iconRes)
+
+            // Change the color of the icon if needed
+            val color = if (isFavorite(country)) {
+                ContextCompat.getColor(context, R.color.teal_200)
+            } else {
+                ContextCompat.getColor(context, R.color.teal_200)
+            }
+            binding.favoriteButton.setColorFilter(color, PorterDuff.Mode.SRC_IN)
         }
     }
 }

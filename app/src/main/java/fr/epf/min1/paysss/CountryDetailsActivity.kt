@@ -50,7 +50,7 @@ class CountryDetailsActivity : AppCompatActivity() {
     private fun fetchBorderCountries(countryName: String) {
         RetrofitInstance.api.getBorderCountriesByName(countryName).enqueue(object : Callback<List<Country>> {
             override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
-                if (response.isSuccessful) {
+                    if (response.isSuccessful) {
                     val borderCountriesList = response.body()
                     if (borderCountriesList.isNullOrEmpty()) {
                         binding.borderCountriesTextView.text = "Pas de pays frontaliers"
@@ -60,7 +60,7 @@ class CountryDetailsActivity : AppCompatActivity() {
                     }
                 } else {
                     Log.e("CountryDetails", "Erreur API: ${response.errorBody()?.string()}")
-                    binding.borderCountriesTextView.text = "Erreur de chargement des pays frontaliers"
+                    binding.borderCountriesTextView.text = "Pas de pays frontaliers, c'est une île !"
                 }
             }
 
@@ -74,6 +74,14 @@ class CountryDetailsActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        val favoriteItem = menu?.findItem(R.id.action_favorites)
+        val favoriteIcon = favoriteItem?.icon
+        val color = ContextCompat.getColor(this, R.color.teal_200) // Remplacez R.color.favorite_color par la couleur souhaitée
+        favoriteIcon?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
