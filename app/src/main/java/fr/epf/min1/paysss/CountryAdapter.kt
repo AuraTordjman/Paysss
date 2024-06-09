@@ -33,10 +33,10 @@ class CountryAdapter(private val context: Context, private val countries: List<C
             binding.country = country
             Glide.with(binding.root.context).load(country.flags.png).into(binding.flagImageView)
 
-            // Vérifier si le pays est favori et mettre à jour l'icône
+
             updateFavoriteIcon(country)
 
-            // Ajouter un OnClickListener pour chaque élément
+
             binding.root.setOnClickListener {
                 val context = binding.root.context
                 val intent = Intent(context, CountryDetailsActivity::class.java)
@@ -44,7 +44,7 @@ class CountryAdapter(private val context: Context, private val countries: List<C
                 context.startActivity(intent)
             }
 
-            // Ajouter un OnClickListener pour le bouton de favoris
+
             binding.favoriteButton.setOnClickListener {
                 if (isFavorite(country)) {
                     favoritesManager.removeFavorite(country)
@@ -63,13 +63,13 @@ class CountryAdapter(private val context: Context, private val countries: List<C
 
         private fun updateFavoriteIcon(country: Country) {
             val iconRes = if (isFavorite(country)) {
-                R.drawable.heart // Icône pour les favoris
+                R.drawable.heart
             } else {
-                R.drawable.heart_outline // Icône pour non favoris
+                R.drawable.heart_outline
             }
             binding.favoriteButton.setImageResource(iconRes)
 
-            // Change the color of the icon if needed
+
             val color = if (isFavorite(country)) {
                 ContextCompat.getColor(context, R.color.teal_200)
             } else {

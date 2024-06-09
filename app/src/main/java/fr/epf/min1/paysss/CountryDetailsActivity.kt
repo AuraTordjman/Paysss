@@ -4,8 +4,9 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import android.view.Gravity
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -41,7 +42,6 @@ class CountryDetailsActivity : AppCompatActivity() {
         // Configurer le bouton de retour
         val color = ContextCompat.getColor(this, R.color.purple_500)
         binding.backButton.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-
         binding.backButton.setOnClickListener {
             onBackPressed()
         }
@@ -50,13 +50,33 @@ class CountryDetailsActivity : AppCompatActivity() {
     private fun fetchBorderCountries(countryName: String) {
         RetrofitInstance.api.getBorderCountriesByName(countryName).enqueue(object : Callback<List<Country>> {
             override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
-                    if (response.isSuccessful) {
+                if (response.isSuccessful) {
                     val borderCountriesList = response.body()
                     if (borderCountriesList.isNullOrEmpty()) {
                         binding.borderCountriesTextView.text = "Pas de pays frontaliers"
                     } else {
-                        val borderCountries = borderCountriesList.joinToString(", ") { it.name }
-                        binding.borderCountriesTextView.text = "Pays frontaliers: $borderCountries"
+                        binding.borderCountriesTextView.text = "Pays frontaliers:"
+                        borderCountriesList.forEach { borderCountry ->
+                            val textView = TextView(this@CountryDetailsActivity).apply {
+                                text = borderCountry.name
+                                textSize = 20f // Augmenter la taille du texte
+                                setTypeface(null, android.graphics.Typeface.BOLD) // Rendre le texte en gras
+                                setTextColor(ContextCompat.getColor(this@CountryDetailsActivity, R.color.purple_500))
+                                setOnClickListener {
+                                    val intent = Intent(this@CountryDetailsActivity, CountryDetailsActivity::class.java)
+                                    intent.putExtra("country", borderCountry)
+                                    startActivity(intent)
+                                }
+                                layoutParams = LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                                ).apply {
+                                    setMargins(0, 8, 0, 0)
+                                    gravity = Gravity.START
+                                }
+                            }
+                            binding.borderCountriesLayout.addView(textView)
+                        }
                     }
                 } else {
                     Log.e("CountryDetails", "Erreur API: ${response.errorBody()?.string()}")
@@ -69,29 +89,5 @@ class CountryDetailsActivity : AppCompatActivity() {
                 binding.borderCountriesTextView.text = "Erreur de chargement des pays frontaliers"
             }
         })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        val favoriteItem = menu?.findItem(R.id.action_favorites)
-        val favoriteIcon = favoriteItem?.icon
-        val color = ContextCompat.getColor(this, R.color.teal_200) // Remplacez R.color.favorite_color par la couleur souhaitée
-        favoriteIcon?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-        return super.onPrepareOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_favorites -> {
-                val intent = Intent(this, FavoritesActivity::class.java)
-                startActivity(intent)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }
