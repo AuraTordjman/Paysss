@@ -9,6 +9,9 @@ interface CountryApiService {
     @GET("countries")
     fun getAllCountries(): Call<List<Country>>
 
+    @GET("countries/borders/{countryName}")
+    fun getBorderCountriesByName(@Path("countryName") countryName: String): Call<List<Country>>
+
     @GET("countries/name/{name}")
     fun getCountriesByName(@Path("name") name: String): Call<List<Country>>
 

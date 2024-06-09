@@ -3,6 +3,7 @@ package fr.epf.min1.paysss
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,10 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import fr.epf.min1.paysss.databinding.ActivityCountryDetailsBinding
 import fr.epf.min1.paysss.models.Country
+import fr.epf.min1.paysss.network.RetrofitInstance
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CountryDetailsActivity : AppCompatActivity() {
 
@@ -29,6 +34,8 @@ class CountryDetailsActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(it.flags.png)
                 .into(binding.flagImageView)
+
+            fetchBorderCountries(it.name)
         }
 
         // Configurer le bouton de retour
@@ -38,6 +45,30 @@ class CountryDetailsActivity : AppCompatActivity() {
         binding.backButton.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    private fun fetchBorderCountries(countryName: String) {
+        RetrofitInstance.api.getBorderCountriesByName(countryName).enqueue(object : Callback<List<Country>> {
+            override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
+                if (response.isSuccessful) {
+                    val borderCountriesList = response.body()
+                    if (borderCountriesList.isNullOrEmpty()) {
+                        binding.borderCountriesTextView.text = "Pas de pays frontaliers"
+                    } else {
+                        val borderCountries = borderCountriesList.joinToString(", ") { it.name }
+                        binding.borderCountriesTextView.text = "Pays frontaliers: $borderCountries"
+                    }
+                } else {
+                    Log.e("CountryDetails", "Erreur API: ${response.errorBody()?.string()}")
+                    binding.borderCountriesTextView.text = "Erreur de chargement des pays frontaliers"
+                }
+            }
+
+            override fun onFailure(call: Call<List<Country>>, t: Throwable) {
+                Log.e("CountryDetails", "Erreur de réseau: ${t.message}")
+                binding.borderCountriesTextView.text = "Erreur de chargement des pays frontaliers"
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
