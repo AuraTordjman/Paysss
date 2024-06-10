@@ -1,5 +1,6 @@
 package fr.epf.min1.paysss
 
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
@@ -31,9 +32,13 @@ class FavoritesActivity : AppCompatActivity() {
         binding.backButton.setOnClickListener {
             onBackPressed()
         }
-        // Change the color of the back button arrow to purple_500
-        val color = ContextCompat.getColor(this, R.color.purple_500)
-        binding.backButton.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        binding.homeButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     override fun onResume() {

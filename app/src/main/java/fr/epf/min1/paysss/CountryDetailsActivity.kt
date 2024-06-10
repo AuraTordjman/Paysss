@@ -39,12 +39,17 @@ class CountryDetailsActivity : AppCompatActivity() {
             fetchBorderCountries(it.name)
         }
 
-        // Configurer le bouton de retour
-        val color = ContextCompat.getColor(this, R.color.purple_500)
-        binding.backButton.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        binding.homeButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+        }
+
         binding.backButton.setOnClickListener {
             onBackPressed()
         }
+
     }
 
     private fun fetchBorderCountries(countryName: String) {

@@ -49,6 +49,18 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp" />
+            <ImageButton
+                android:id="@+id/homeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:src="@drawable/home_circle"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/home_button"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp" />
         </RelativeLayout>
 
     </FrameLayout>
