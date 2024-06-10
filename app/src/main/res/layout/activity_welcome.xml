@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    tools:context=".WelcomeActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenue sur countryApp!"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:id="@+id/searchCountryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rechercher un pays"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/purple_700"
+        android:padding="16dp"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/favoriteListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Liste des favoris"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/purple_700"
+        android:padding="16dp"
+        android:textSize="20sp" />
+
+
+</LinearLayout>

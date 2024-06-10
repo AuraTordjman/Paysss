@@ -7,4 +7,5 @@
     <string name="favorites">Favoris</string>
     <string name="back_button">Retour</string>
     <string name="home_button">Home</string>
+    <string name="list_button">Liste</string>
 </resources>

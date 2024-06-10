@@ -44,6 +44,17 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+
+        binding.homeButton.setOnClickListener {
+            val intent = Intent(this, WelcomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.backButton.setOnClickListener {
+            onBackPressed()
+        }
         fetchAllCountries()
     }
 
