@@ -24,12 +24,17 @@ class FavoritesActivity : AppCompatActivity() {
         favoritesManager = FavoritesManager(this)
 
         binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(this)
-        countryAdapter = CountryAdapter(this, favoritesManager.getFavorites())
+        countryAdapter = CountryAdapter(this, favoritesManager.getFavorites()) { country ->
+            val intent = Intent(this, CountryDetailsActivity::class.java)
+            intent.putExtra("country", country)
+            startActivity(intent)
+        }
         binding.favoritesRecyclerView.adapter = countryAdapter
 
         updateEmptyMessageVisibility()
 
         binding.backButton.setOnClickListener {
+            setResult(RESULT_OK)  // Indiquer que les favoris ont été modifiés
             onBackPressed()
         }
         binding.homeButton.setOnClickListener {
@@ -38,15 +43,12 @@ class FavoritesActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
     }
 
     override fun onResume() {
         super.onResume()
         // Mettre à jour la liste des favoris lorsque l'activité est reprise
-        countryAdapter = CountryAdapter(this, favoritesManager.getFavorites())
-        binding.favoritesRecyclerView.adapter = countryAdapter
-
+        countryAdapter.updateCountries(favoritesManager.getFavorites())
         updateEmptyMessageVisibility()
     }
 

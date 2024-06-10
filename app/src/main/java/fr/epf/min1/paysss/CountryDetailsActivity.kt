@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -23,16 +24,19 @@ import retrofit2.Response
 class CountryDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCountryDetailsBinding
+    private lateinit var favoritesManager: FavoritesManager
+    private var currentCountry: Country? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_country_details)
+        favoritesManager = FavoritesManager(this)
 
         // Recevoir les données du pays à partir de l'intention
-        val country = intent.getSerializableExtra("country") as? Country
+        currentCountry = intent.getSerializableExtra("country") as? Country
 
         // Afficher les données du pays
-        country?.let {
+        currentCountry?.let {
             binding.country = it
             Glide.with(this)
                 .load(it.flags.png)
@@ -48,26 +52,54 @@ class CountryDetailsActivity : AppCompatActivity() {
             finish()
         }
 
-
         binding.backButton.setOnClickListener {
             onBackPressed()
         }
-
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
+        menuInflater.inflate(R.menu.favorite_menu, menu)
+        updateFavoriteMenuIcon(menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_favorites -> {
-                val intent = Intent(this, FavoritesActivity::class.java)
-                startActivity(intent)
+                currentCountry?.let {
+                    if (isFavorite(it)) {
+                        favoritesManager.removeFavorite(it)
+                        Toast.makeText(this, "${it.name} retiré des favoris", Toast.LENGTH_SHORT).show()
+                    } else {
+                        favoritesManager.addFavorite(it)
+                        Toast.makeText(this, "${it.name} ajouté aux favoris", Toast.LENGTH_SHORT).show()
+                    }
+                    setResult(RESULT_OK)  // Indique que les favoris ont été modifiés
+                    invalidateOptionsMenu() // Met à jour le menu pour refléter les changements // Met à jour le menu pour refléter les changements
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun isFavorite(country: Country): Boolean {
+        return favoritesManager.getFavorites().contains(country)
+    }
+
+    private fun updateFavoriteMenuIcon(menu: Menu? = null) {
+        currentCountry?.let { country ->
+            val favoriteItem = menu?.findItem(R.id.action_favorites)
+            if (isFavorite(country)) {
+                favoriteItem?.setIcon(R.drawable.heart)
+                favoriteItem?.setTitle("Retirer des favoris")
+            } else {
+                favoriteItem?.setIcon(R.drawable.heart_outline)
+                favoriteItem?.setTitle("Ajouter aux favoris")
+            }
+        }
+    }
+
     private fun fetchBorderCountries(countryName: String) {
         RetrofitInstance.api.getBorderCountriesByName(countryName).enqueue(object : Callback<List<Country>> {
             override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {

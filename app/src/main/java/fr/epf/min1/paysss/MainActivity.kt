@@ -25,13 +25,22 @@ class MainActivity : AppCompatActivity() {
     private var countryList: List<Country> = listOf()
     private var filteredList: List<Country> = listOf()
 
+    companion object {
+        const val REQUEST_CODE_FAVORITES = 2
+        const val REQUEST_CODE_DETAILS = 1
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.countryRecyclerView.layoutManager = LinearLayoutManager(this)
-        countryAdapter = CountryAdapter(this, filteredList)
+        countryAdapter = CountryAdapter(this, filteredList) { country ->
+            val intent = Intent(this, CountryDetailsActivity::class.java)
+            intent.putExtra("country", country)
+            startActivityForResult(intent, REQUEST_CODE_DETAILS)
+        }
         binding.countryRecyclerView.adapter = countryAdapter
 
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
@@ -43,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-
 
         binding.homeButton.setOnClickListener {
             val intent = Intent(this, WelcomeActivity::class.java)
@@ -95,8 +103,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateRecyclerView() {
-        countryAdapter = CountryAdapter(this, filteredList)
-        binding.countryRecyclerView.adapter = countryAdapter
+        countryAdapter.updateCountries(filteredList)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -116,10 +123,21 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_favorites -> {
                 val intent = Intent(this, FavoritesActivity::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, REQUEST_CODE_FAVORITES)
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_DETAILS && resultCode == RESULT_OK) {
+            // Rafraîchir les données pour refléter les modifications des favoris
+            fetchAllCountries()
+        } else if (requestCode == REQUEST_CODE_FAVORITES && resultCode == RESULT_OK) {
+            // Rafraîchir les données pour refléter les modifications des favoris
+            fetchAllCountries()
         }
     }
 }
