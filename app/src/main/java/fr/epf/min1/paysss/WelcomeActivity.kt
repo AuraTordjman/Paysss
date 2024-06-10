@@ -24,9 +24,9 @@ class WelcomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //binding.quizButton.setOnClickListener {
-         //   val intent = Intent(this, QuizActivity::class.java) // Assurez-vous d'avoir une activité Quiz
-           // startActivity(intent)
-        //}
+        binding.quizButton.setOnClickListener {
+            val intent = Intent(this, QuizActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -6,6 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface CountryApiService {
+
     @GET("countries")
     fun getAllCountries(): Call<List<Country>>
 
@@ -32,4 +33,8 @@ interface CountryApiService {
 
     @GET("countries/lang/{language}")
     fun getCountriesByLanguage(@Path("language") language: String): Call<List<Country>>
+
+    // New endpoints
+    @GET("countries/capital/{capital}")
+    fun getCountriesByCapital(@Path("capital") capital: String): Call<List<Country>>
 }

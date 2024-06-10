@@ -40,4 +40,13 @@
         android:backgroundTint="@color/purple_700"
         android:padding="16dp"
         android:textSize="20sp" />
+    <Button
+        android:id="@+id/quizButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quiz du jour"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/purple_700"
+        android:padding="16dp"
+        android:textSize="20sp" />
 </LinearLayout>
