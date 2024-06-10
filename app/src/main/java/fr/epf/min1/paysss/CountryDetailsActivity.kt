@@ -114,7 +114,7 @@ class CountryDetailsActivity : AppCompatActivity() {
                                 text = borderCountry.name
                                 textSize = 20f // Augmenter la taille du texte
                                 setTypeface(null, android.graphics.Typeface.BOLD) // Rendre le texte en gras
-                                setTextColor(ContextCompat.getColor(this@CountryDetailsActivity, R.color.purple_500))
+                                setTextColor(ContextCompat.getColor(this@CountryDetailsActivity, R.color.purple_200))
                                 setOnClickListener {
                                     val intent = Intent(this@CountryDetailsActivity, CountryDetailsActivity::class.java)
                                     intent.putExtra("country", borderCountry)

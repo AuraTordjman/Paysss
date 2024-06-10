@@ -7,6 +7,12 @@
     android:gravity="center"
     tools:context=".WelcomeActivity">
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginBottom="32dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +40,4 @@
         android:backgroundTint="@color/purple_700"
         android:padding="16dp"
         android:textSize="20sp" />
-
-
 </LinearLayout>
