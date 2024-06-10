@@ -52,7 +52,7 @@ class QuizActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Country>>, t: Throwable) {
-                // Handle failure
+
             }
         })
     }

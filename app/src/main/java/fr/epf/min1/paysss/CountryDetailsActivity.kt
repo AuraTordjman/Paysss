@@ -32,10 +32,10 @@ class CountryDetailsActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_country_details)
         favoritesManager = FavoritesManager(this)
 
-        // Recevoir les données du pays à partir de l'intention
+
         currentCountry = intent.getSerializableExtra("country") as? Country
 
-        // Afficher les données du pays
+
         currentCountry?.let {
             binding.country = it
             Glide.with(this)
@@ -74,8 +74,8 @@ class CountryDetailsActivity : AppCompatActivity() {
                         favoritesManager.addFavorite(it)
                         Toast.makeText(this, "${it.name} ajouté aux favoris", Toast.LENGTH_SHORT).show()
                     }
-                    setResult(RESULT_OK)  // Indique que les favoris ont été modifiés
-                    invalidateOptionsMenu() // Met à jour le menu pour refléter les changements // Met à jour le menu pour refléter les changements
+                    setResult(RESULT_OK)
+                    invalidateOptionsMenu()
                 }
                 true
             }
@@ -112,8 +112,8 @@ class CountryDetailsActivity : AppCompatActivity() {
                         borderCountriesList.forEach { borderCountry ->
                             val textView = TextView(this@CountryDetailsActivity).apply {
                                 text = borderCountry.name
-                                textSize = 20f // Augmenter la taille du texte
-                                setTypeface(null, android.graphics.Typeface.BOLD) // Rendre le texte en gras
+                                textSize = 20f
+                                setTypeface(null, android.graphics.Typeface.BOLD)
                                 setTextColor(ContextCompat.getColor(this@CountryDetailsActivity, R.color.purple_200))
                                 setOnClickListener {
                                     val intent = Intent(this@CountryDetailsActivity, CountryDetailsActivity::class.java)

@@ -34,7 +34,7 @@ class FavoritesActivity : AppCompatActivity() {
         updateEmptyMessageVisibility()
 
         binding.backButton.setOnClickListener {
-            setResult(RESULT_OK)  // Indiquer que les favoris ont été modifiés
+            setResult(RESULT_OK)
             onBackPressed()
         }
         binding.homeButton.setOnClickListener {
@@ -47,7 +47,7 @@ class FavoritesActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Mettre à jour la liste des favoris lorsque l'activité est reprise
+
         countryAdapter.updateCountries(favoritesManager.getFavorites())
         updateEmptyMessageVisibility()
     }

@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Country>>, t: Throwable) {
-                // Handle failure
+
             }
         })
     }
@@ -133,10 +133,10 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_DETAILS && resultCode == RESULT_OK) {
-            // Rafraîchir les données pour refléter les modifications des favoris
+
             fetchAllCountries()
         } else if (requestCode == REQUEST_CODE_FAVORITES && resultCode == RESULT_OK) {
-            // Rafraîchir les données pour refléter les modifications des favoris
+
             fetchAllCountries()
         }
     }
